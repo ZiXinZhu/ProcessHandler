@@ -4,7 +4,10 @@ import org.springframework.util.Assert;
 
 import java.io.Serializable;
 
-public class TradeDO implements Serializable {
+/**
+ * @author Husky
+ */
+public class TradeDO extends BaseDO implements Serializable {
     private int id;
     private String tradeDate;
     private String tradeTime;

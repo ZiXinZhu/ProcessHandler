@@ -1,10 +1,7 @@
 package com.zzx.transactions.dao;
 
 import com.zzx.transactions.entity.TradeDO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 @Mapper
@@ -20,4 +17,8 @@ public interface TradeDao {
 
     @Update("update t_trade set remark=#{remark} where id=#{id}")
     int updateRemark(@Param("remark") String remark, @Param("id") int id);
+
+    @Insert("insert into t_trade (id,trade_date,trade_time,money,trade_type,identity,bank,report,bank_account,insertime)" +
+            " values (#{id},#{tradeDate},#{tradeTime},#{money},#{tradeType},#{identity},#{bank},#{report},#{bankAccount},#{insertime})")
+    int insertOne(TradeDO tradeDO);
 }
