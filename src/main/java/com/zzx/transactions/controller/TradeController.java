@@ -19,6 +19,7 @@ public class TradeController {
     @GetMapping("/transaction")
     public CommonResult<String> process() {
         TradeDO tradeDO = new TradeDO();
+//        tradeDO.setId(0);
         tradeDO.setId(311076);
         tradeDO.setBank("ICBC");
         tradeDO.setRemark("TEST");

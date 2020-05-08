@@ -1,5 +1,6 @@
 package com.zzx.transactions.entity;
 
+import com.zzx.transactions.exceptions.CommonException;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
@@ -22,7 +23,9 @@ public class TradeDO extends BaseDO implements Serializable {
 
 
     public void available() {
-        Assert.notNull(this.getId(), "ID不能为空");
+        if (this.getId()==0){
+            throw new CommonException(502,"ID不能为空！");
+        }
         Assert.notNull(this.getBank(), "银行缩写不能为空");
         Assert.notNull(this.getRemark(), "备注不能为空");
     }

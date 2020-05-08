@@ -21,17 +21,7 @@ public class TradeServiceImpl implements TradeService {
     public String process(TradeDO trade) {
         return transactionTemplate.execute(transactionStatus -> {
             TradeDO tradeDO = tradeDao.queryOne(trade.getId());
-            try {
-                Thread.sleep(20 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             int resultBank = tradeDao.updateBank(trade.getBank(), trade.getId());
-            try {
-                Thread.sleep(20 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             int resultRemark = tradeDao.updateRemark(trade.getRemark(), trade.getId());
             return String.format("%s-%s-%s", tradeDO, resultBank, resultRemark);
         });
