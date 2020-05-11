@@ -22,6 +22,7 @@ public class TradeDO extends BaseDO implements Serializable {
     private String insertime;
 
 
+    @Override
     public void available() {
         if (this.getId()==0){
             throw new CommonException(502,"ID不能为空！");

@@ -1,6 +1,13 @@
 package com.zzx.transactions.entity;
 
-public class BaseDO<T> {
-    public T paramter;
+import com.zzx.transactions.enums.ContainEnum;
+import com.zzx.transactions.exceptions.CommonException;
+import org.springframework.util.Assert;
 
+public class BaseDO{
+    ContainEnum containEnum;
+
+    public void available() {
+
+    }
 }
