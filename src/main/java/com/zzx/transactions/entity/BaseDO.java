@@ -5,9 +5,17 @@ import com.zzx.transactions.exceptions.CommonException;
 import org.springframework.util.Assert;
 
 public class BaseDO{
-    ContainEnum containEnum;
+    private ContainEnum containEnum;
 
     public void available() {
 
+    }
+
+    public ContainEnum getContainEnum() {
+        return containEnum;
+    }
+
+    public void setContainEnum(ContainEnum containEnum) {
+        this.containEnum = containEnum;
     }
 }

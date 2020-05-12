@@ -12,7 +12,7 @@ public interface OrderDOMapper {
 
 
     @Select("select * from order_info where id=#{id} for update")
-    OrderDO lock(@Param("id")int id);
+    OrderDO lock(@Param("id") int id);
 
     int deleteByPrimaryKey(Integer id);
 
