@@ -1,6 +1,9 @@
 package com.zzx.transactions.common;
 
 public class CommonResult<T> extends BaseResult {
+    /**
+     * 泛型参数
+     */
     private T result;
 
     @Override

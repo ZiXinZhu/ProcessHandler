@@ -16,8 +16,8 @@ public class RefundmentController {
     RefundmentService refundmentService;
 
     @GetMapping("/refund")
-    public CommonResult<RefundmentDO> refundment(RefundmentDO refundmentDO){
-        CommonResult<RefundmentDO> result=new CommonResult<>();
+    public CommonResult<RefundmentDO> refundment(RefundmentDO refundmentDO) {
+        CommonResult<RefundmentDO> result = new CommonResult<>();
         ProcessHandler.handler(result, new ParamterHandler() {
             @Override
             public void check() {
@@ -26,9 +26,9 @@ public class RefundmentController {
 
             @Override
             public void process() {
-              result.setResult(refundmentService.process(refundmentDO));
+                result.setResult(refundmentService.process(refundmentDO));
             }
         });
-        return new CommonResult<>();
+        return result;
     }
 }

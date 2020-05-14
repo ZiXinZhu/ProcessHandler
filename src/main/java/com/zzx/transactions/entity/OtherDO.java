@@ -1,10 +1,28 @@
 package com.zzx.transactions.entity;
 
+/**
+ * 其他数据
+ */
 public class OtherDO extends BaseDO {
+    /**
+     * id
+     */
     private int id;
+    /**
+     * 用户名
+     */
     private String name;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 创建时间
+     */
     private String createTime;
+    /**
+     * 更新时间
+     */
     private String updateTime;
 
     @Override

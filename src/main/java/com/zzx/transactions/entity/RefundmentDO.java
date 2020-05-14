@@ -1,20 +1,50 @@
 package com.zzx.transactions.entity;
 
+import org.springframework.lang.NonNull;
+
 import java.util.Date;
 
-public class RefundmentDO extends BaseDO{
+/**
+ * 退款处理表数据
+ */
+public class RefundmentDO extends BaseDO {
+    /**
+     * id
+     */
     private Integer id;
 
+    /**
+     * 退款id
+     */
+    @NonNull
     private String refundmentId;
 
+    /**
+     * 关联订单号id
+     */
+    @NonNull
     private String orderId;
 
+    /**
+     * 金额
+     */
+    @NonNull
     private String money;
 
+    /**
+     * 备注
+     */
+    @NonNull
     private String mark;
 
+    /**
+     * 创建时间
+     */
     private Date creadeTime;
 
+    /**
+     * 更新时间
+     */
     private Date updateTime;
 
     @Override

@@ -1,31 +1,74 @@
 package com.zzx.transactions.entity;
 
 import com.zzx.transactions.exceptions.CommonException;
+import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
+/**
+ * 回调处理表数据
+ */
 import java.io.Serializable;
 
 /**
  * @author Husky
  */
 public class TradeDO extends BaseDO implements Serializable {
+    /**
+     * id
+     */
     private int id;
+    /**
+     * 交易日期
+     */
+    @NonNull
     private String tradeDate;
+    /**
+     * 交易时间
+     */
+    @NonNull
     private String tradeTime;
+    /**
+     * 金额
+     */
+    @NonNull
     private String money;
+    /**
+     * 交易类型
+     */
     private String tradeType;
+    /**
+     * 备注
+     */
     private String remark;
+    /**
+     * 身份认证
+     */
+    @NonNull
     private String identity;
+    /**
+     * 交易银行
+     */
+    @NonNull
     private String bank;
+    /**
+     * 是否上报
+     */
+    @NonNull
     private String report;
+    /**
+     * 银行账户
+     */
     private String bankAccount;
+    /**
+     * 入库时间
+     */
     private String insertime;
 
 
     @Override
     public void available() {
-        if (this.getId()==0){
-            throw new CommonException(502,"ID不能为空！");
+        if (this.getId() == 0) {
+            throw new CommonException(502, "ID不能为空！");
         }
         Assert.notNull(this.getBank(), "银行缩写不能为空");
         Assert.notNull(this.getRemark(), "备注不能为空");

@@ -1,20 +1,50 @@
 package com.zzx.transactions.entity;
 
+import org.springframework.lang.NonNull;
+
 import java.util.Date;
 
-public class OrderDO extends BaseDO{
+/**
+ * 订单数据表数据
+ */
+public class OrderDO extends BaseDO {
+    /**
+     * id
+     */
     private Integer id;
 
+    /**
+     * 订单id
+     */
+    @NonNull
     private String orderId;
 
+    /**
+     * 金额
+     */
+    @NonNull
     private String money;
 
+    /**
+     * 商品
+     */
+    @NonNull
     private String goods;
 
+    /**
+     * 用户id
+     */
+    @NonNull
     private Integer userId;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 更新时间
+     */
     private Date updateTime;
 
     @Override

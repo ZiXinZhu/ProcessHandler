@@ -1,12 +1,12 @@
 package com.zzx.transactions;
 
-import com.zzx.transactions.entity.RefundmentDO;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.MediaType;
@@ -24,9 +24,10 @@ import org.springframework.web.context.WebApplicationContext;
  * @Author Alon
  * @Date 2020/5/12 22:00
  */
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = TransactionsApplication.class)
-@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@ImportResource(locations = {"classpath:beforeBean.xml", "classpath:containConfig.xml"})
 public class RefundmentTest {
 
     @Autowired
@@ -35,12 +36,6 @@ public class RefundmentTest {
 
     @Before
     public void before() {
-        RefundmentDO refundmentDO = new RefundmentDO();
-        refundmentDO.setId(1);
-        refundmentDO.setOrderId("202004050000000012344321");
-        refundmentDO.setRefundmentId("20200512000000002315424");
-        refundmentDO.setMoney("1000");
-        refundmentDO.setMark("refund");
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();//建议使用这种
     }
 
@@ -59,6 +54,7 @@ public class RefundmentTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
         String content = mvcResult.getResponse().getContentAsString();
-        Assert.assertEquals("", content);
+        JSONObject jsonObject = JSON.parseObject(content);
+        Assert.assertEquals("success", jsonObject.get("describe"));
     }
 }

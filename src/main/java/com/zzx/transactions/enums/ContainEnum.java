@@ -1,14 +1,15 @@
 package com.zzx.transactions.enums;
 
-public enum  ContainEnum {
-    ORDER("ORDER","订单"),
+public enum ContainEnum {
 
-    REFUNDMENT("REFUNDMENT","退款");
+    ORDER("ORDER", "订单"),
+
+    REFUNDMENT("REFUNDMENT", "退款");
 
     private String code;
     private String desc;
 
-     ContainEnum(String code, String desc) {
+    ContainEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }

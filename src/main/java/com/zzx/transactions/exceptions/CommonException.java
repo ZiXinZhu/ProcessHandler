@@ -1,17 +1,29 @@
 package com.zzx.transactions.exceptions;
 
 public class CommonException extends RuntimeException {
+    /**
+     * 异常code
+     */
     private int code;
+    /**
+     * 异常详细信息
+     */
     private String message;
+    /**
+     * 源异常
+     */
     private Throwable throwable;
 
-    public CommonException(){}
-    public CommonException(int code,String message){
-        this.code=code;
-        this.message=message;
+    public CommonException() {
     }
-    public CommonException(Throwable throwable){
-        this.throwable=throwable;
+
+    public CommonException(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public CommonException(Throwable throwable) {
+        this.throwable = throwable;
     }
 
     public int getCode() {

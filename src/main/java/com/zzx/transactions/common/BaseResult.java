@@ -1,8 +1,17 @@
 package com.zzx.transactions.common;
 
 public class BaseResult {
+    /**
+     * 是否成功
+     */
     private boolean success;
+    /**
+     * 返回代码
+     */
     private int code;
+    /**
+     * 返回描述
+     */
     private String describe;
 
     @Override

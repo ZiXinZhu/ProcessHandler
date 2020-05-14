@@ -8,11 +8,17 @@ import com.zzx.transactions.service.ContainService;
 
 public class ServerList {
 
+    /**
+     * 枚举表示bean类型
+     */
     private ContainEnum containEnum;
 
+    /**
+     * 公共接口对应具体实现的bean
+     */
     private ContainService<BaseDO> containService;
 
-    public ServerList(){
+    public ServerList() {
         System.out.println("ServerList初始化");
     }
 

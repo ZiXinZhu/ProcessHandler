@@ -1,12 +1,19 @@
 package com.zzx.transactions.entity;
 
 import com.zzx.transactions.enums.ContainEnum;
-import com.zzx.transactions.exceptions.CommonException;
-import org.springframework.util.Assert;
 
-public class BaseDO{
+/**
+ * 基础entity
+ */
+public class BaseDO {
+    /**
+     * 容器枚举类型
+     */
     private ContainEnum containEnum;
 
+    /**
+     * 参数校验
+     */
     public void available() {
 
     }

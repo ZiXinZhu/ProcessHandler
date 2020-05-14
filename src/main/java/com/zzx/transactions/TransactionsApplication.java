@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
+@ImportResource(locations = {"classpath:beforeBean.xml", "classpath:containConfig.xml"})
 @SpringBootApplication
-@ImportResource(locations = {"beforeBean.xml","containConfig.xml"})
 public class TransactionsApplication {
 
     public static void main(String[] args) {

@@ -22,16 +22,17 @@ public class IteratorServiceImpl implements IteratorService {
 
     @Autowired
     private TradeDao tradeDao;
+
     @Override
     public void mapIterator(Map<String, ? extends BaseDO> map) {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @NonNull
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                map.forEach((k,v)->{
-                    if("other".equals(k)){
+                map.forEach((k, v) -> {
+                    if ("other".equals(k)) {
                         tradeDao.insertOne((TradeDO) v);
-                        tradeDao.updateBank("ABC",((TradeDO) v).getId());
+                        tradeDao.updateBank("ABC", ((TradeDO) v).getId());
                         System.out.println(v.toString());
                     }
                 });

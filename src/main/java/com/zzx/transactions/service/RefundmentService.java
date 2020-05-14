@@ -9,5 +9,10 @@ import com.zzx.transactions.entity.RefundmentDO;
  */
 public interface RefundmentService {
 
+    /**
+     * 退款业务处理
+     * @param refundmentDO
+     * @return
+     */
     RefundmentDO process(RefundmentDO refundmentDO);
 }
