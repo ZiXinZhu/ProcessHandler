@@ -3,7 +3,7 @@ package com.zzx.transactions.config;
 
 import com.zzx.transactions.entity.BaseDO;
 import com.zzx.transactions.enums.ContainEnum;
-import com.zzx.transactions.service.ContainService;
+import com.zzx.transactions.service.dal.ContainService;
 
 
 public class ServerList {

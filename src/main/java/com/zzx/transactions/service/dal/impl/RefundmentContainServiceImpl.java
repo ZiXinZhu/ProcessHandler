@@ -1,11 +1,12 @@
-package com.zzx.transactions.service.impl;
+package com.zzx.transactions.service.dal.impl;
 
 import com.zzx.transactions.dao.RefundmentDOMapper;
 import com.zzx.transactions.entity.RefundmentDO;
-import com.zzx.transactions.service.ContainService;
+import com.zzx.transactions.service.dal.ContainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class RefundmentContainServiceImpl implements ContainService<RefundmentDO> {
 
 

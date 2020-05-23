@@ -1,8 +1,8 @@
-package com.zzx.transactions.service.impl;
+package com.zzx.transactions.service.share.impl;
 
-import com.zzx.transactions.dao.TradeDao;
 import com.zzx.transactions.entity.TradeDO;
-import com.zzx.transactions.service.TradeService;
+import com.zzx.transactions.service.dal.TradeDalService;
+import com.zzx.transactions.service.share.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -15,14 +15,14 @@ public class TradeServiceImpl implements TradeService {
     private TransactionTemplate transactionTemplate;
 
     @Autowired
-    private TradeDao tradeDao;
+    private TradeDalService tradeDalService;
 
     @Override
     public String process(TradeDO trade) {
         return transactionTemplate.execute(transactionStatus -> {
-            TradeDO tradeDO = tradeDao.queryOne(trade.getId());
-            int resultBank = tradeDao.updateBank(trade.getBank(), trade.getId());
-            int resultRemark = tradeDao.updateRemark(trade.getRemark(), trade.getId());
+            TradeDO tradeDO = tradeDalService.queryOne(trade.getId());
+            int resultBank = tradeDalService.updateBank(trade.getBank(), trade.getId());
+            int resultRemark = tradeDalService.updateRemark(trade.getRemark(), trade.getId());
             return String.format("%s-%s-%s", tradeDO, resultBank, resultRemark);
         });
     }

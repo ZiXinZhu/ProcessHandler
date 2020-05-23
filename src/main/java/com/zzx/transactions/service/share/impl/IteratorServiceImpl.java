@@ -1,9 +1,10 @@
-package com.zzx.transactions.service.impl;
+package com.zzx.transactions.service.share.impl;
 
-import com.zzx.transactions.dao.TradeDao;
 import com.zzx.transactions.entity.BaseDO;
 import com.zzx.transactions.entity.TradeDO;
-import com.zzx.transactions.service.IteratorService;
+import com.zzx.transactions.service.dal.TradeDalService;
+import com.zzx.transactions.service.share.IteratorService;
+import com.zzx.transactions.service.share.SystemParamterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -16,23 +17,30 @@ import java.util.Map;
 @Service
 public class IteratorServiceImpl implements IteratorService {
 
+    private static final String SELECT_PARAMETER = "SELECT_PARAMETER";
     @SuppressWarnings("all")
     @Autowired
     private TransactionTemplate transactionTemplate;
 
     @Autowired
-    private TradeDao tradeDao;
+    private TradeDalService tradeDalService;
+
+    @Autowired
+    private SystemParamterService systemParamterService;
 
     @Override
     public void mapIterator(Map<String, ? extends BaseDO> map) {
+        if (!systemParamterService.getSelectParamter(SELECT_PARAMETER)) {
+            return;
+        }
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @NonNull
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 map.forEach((k, v) -> {
                     if ("other".equals(k)) {
-                        tradeDao.insertOne((TradeDO) v);
-                        tradeDao.updateBank("ABC", ((TradeDO) v).getId());
+                        tradeDalService.insertOne((TradeDO) v);
+                        tradeDalService.updateBank("ABC", ((TradeDO) v).getId());
                         System.out.println(v.toString());
                     }
                 });

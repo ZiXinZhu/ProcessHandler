@@ -5,6 +5,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.zzx.transactions"/>
-    <bean id="orderContainService" class="com.zzx.transactions.service.impl.OrderContainServiceImpl"/>
-    <bean id="refundmentContainService" class="com.zzx.transactions.service.impl.RefundmentContainServiceImpl"/>
+    <bean id="orderContainService" class="com.zzx.transactions.service.dal.impl.OrderContainServiceImpl"/>
+    <bean id="refundmentContainService" class="com.zzx.transactions.service.dal.impl.RefundmentContainServiceImpl"/>
 </beans>

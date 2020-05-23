@@ -8,7 +8,7 @@ public interface ParamterHandler {
     void check();
 
     /**
-     *业务处理
+     * 业务处理
      */
     void process();
 

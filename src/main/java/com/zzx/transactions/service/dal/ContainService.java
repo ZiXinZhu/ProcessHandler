@@ -1,4 +1,4 @@
-package com.zzx.transactions.service;
+package com.zzx.transactions.service.dal;
 
 public interface ContainService<T> {
 

@@ -7,7 +7,7 @@ public class ProcessHandler {
     /**
      * 业务处理公共模板
      *
-     * @param result 返回值
+     * @param result          返回值
      * @param paramterHandler 公共模板
      */
     public static void handler(BaseResult result, ParamterHandler paramterHandler) {

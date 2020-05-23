@@ -3,7 +3,7 @@ package com.zzx.transactions.config;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.zzx.transactions.entity.BaseDO;
-import com.zzx.transactions.service.ContainService;
+import com.zzx.transactions.service.dal.ContainService;
 
 import java.util.ArrayList;
 import java.util.List;

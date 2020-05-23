@@ -1,4 +1,4 @@
-package com.zzx.transactions.service;
+package com.zzx.transactions.service.share;
 
 import com.zzx.transactions.entity.BaseDO;
 
@@ -8,6 +8,7 @@ public interface IteratorService {
 
     /**
      * 遍历map入库数据
+     *
      * @param map
      */
     void mapIterator(Map<String, ? extends BaseDO> map);

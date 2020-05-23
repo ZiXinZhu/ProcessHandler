@@ -4,10 +4,11 @@ import com.zzx.transactions.exceptions.CommonException;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
+
 /**
  * 回调处理表数据
  */
-import java.io.Serializable;
 
 /**
  * @author Husky
