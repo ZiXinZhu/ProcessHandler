@@ -2,15 +2,15 @@ package com.zzx.transactions.common;
 
 public class BaseResult {
     /**
-     * 鏄惁鎴愬姛
+     * 是否成功
      */
     private boolean success;
     /**
-     * 杩斿洖浠ｇ爜
+     * 返回代码
      */
     private int code;
     /**
-     * 杩斿洖鎻忚堪
+     * 返回描述
      */
     private String describe;
 

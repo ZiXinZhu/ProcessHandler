@@ -36,7 +36,7 @@ public class RefundmentTest {
 
     @Before
     public void before() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();//寤鸿浣跨敤杩欑
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();//建议使用这种
     }
 
     @Test

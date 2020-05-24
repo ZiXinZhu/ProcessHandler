@@ -9,17 +9,17 @@ import com.zzx.transactions.service.dal.ContainService;
 public class ServerList {
 
     /**
-     * æšä¸¾è¡¨ç¤ºbeanç±»å‹
+     * Ã¶¾Ù±íÊ¾beanÀàĞÍ
      */
     private ContainEnum containEnum;
 
     /**
-     * å…¬å…±æ¥å£å¯¹åº”å…·ä½“å®ç°çš„bean
+     * ¹«¹²½Ó¿Ú¶ÔÓ¦¾ßÌåÊµÏÖµÄbean
      */
     private ContainService<BaseDO> containService;
 
     public ServerList() {
-        System.out.println("ServerListåˆå§‹åŒ–");
+        System.out.println("ServerList³õÊ¼»¯");
     }
 
 

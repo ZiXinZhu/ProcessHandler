@@ -1,6 +1,6 @@
 package com.zzx.transactions.service.share;
 
-import com.zzx.transactions.entity.OrderDO;
+import com.zzx.transactions.entity.dto.OrderDTO;
 
 public interface OrderService {
 
@@ -10,5 +10,5 @@ public interface OrderService {
      * @param orderDO
      * @return
      */
-    OrderDO process(OrderDO orderDO);
+    OrderDTO process(OrderDTO orderDO);
 }

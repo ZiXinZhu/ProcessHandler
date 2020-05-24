@@ -3,16 +3,16 @@ package com.zzx.transactions.entity;
 import com.zzx.transactions.enums.ContainEnum;
 
 /**
- * 鍩虹entity
+ * 基础entity
  */
 public class BaseDO {
     /**
-     * 瀹瑰櫒鏋氫妇绫诲瀷
+     * 容器枚举类型
      */
     private ContainEnum containEnum;
 
     /**
-     * 鍙傛暟鏍￠獙
+     * 参数校验
      */
     public void available() {
 

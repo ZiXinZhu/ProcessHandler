@@ -1,10 +1,15 @@
-package com.zzx.transactions.entity;
+package com.zzx.transactions.entity.dto;
 
+import com.zzx.transactions.entity.BaseDO;
+import com.zzx.transactions.entity.OrderDO;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
 
-public class OrderDO {
+/**
+ * 订单数据表数据
+ */
+public class OrderDTO extends BaseDO {
     /**
      * id
      */
@@ -55,6 +60,29 @@ public class OrderDO {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
+    }
+
+    public OrderDO convertOrderDTOToOrderDO(){
+        OrderDO orderDO=new OrderDO();
+        orderDO.setId(this.id);
+        orderDO.setUserId(this.userId);
+        orderDO.setGoods(this.goods);
+        orderDO.setMoney(this.money);
+        orderDO.setOrderId(this.orderId);
+        orderDO.setCreateTime(this.createTime);
+        orderDO.setUpdateTime(this.updateTime);
+        return orderDO;
+    }
+
+    public OrderDTO convertOrderDOToOrderDTO(OrderDO orderDO){
+        this.id=orderDO.getId();
+        this.goods=orderDO.getGoods();
+        this.money=orderDO.getMoney();
+        this.orderId=orderDO.getOrderId();
+        this.userId=orderDO.getUserId();
+        this.createTime=orderDO.getCreateTime();
+        this.updateTime=orderDO.getUpdateTime();
+        return this;
     }
 
     public Integer getId() {

@@ -2,7 +2,7 @@ package com.zzx.transactions.service.share.impl;
 
 import com.zzx.transactions.config.ServiceComponent;
 import com.zzx.transactions.entity.BaseDO;
-import com.zzx.transactions.entity.OrderDO;
+import com.zzx.transactions.entity.dto.OrderDTO;
 import com.zzx.transactions.service.dal.ContainService;
 import com.zzx.transactions.service.share.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,18 @@ public class OrderServerImpl implements OrderService {
     ServiceComponent component;
 
     @Override
-    public OrderDO process(OrderDO orderDO) {
-        return transactionTemplate.execute(new TransactionCallback<OrderDO>() {
+    public OrderDTO process(OrderDTO orderDTO) {
+        return transactionTemplate.execute(new TransactionCallback<OrderDTO>() {
             @Nullable
             @Override
-            public OrderDO doInTransaction(TransactionStatus transactionStatus) {
-                ContainService<BaseDO> containService = component.getServer(orderDO.getContainEnum().getCode());
-                OrderDO order = (OrderDO) containService.lock(orderDO.getId());
-                int res = containService.update(orderDO);
+            public OrderDTO doInTransaction(TransactionStatus transactionStatus) {
+                ContainService<BaseDO> containService = component.getServer(orderDTO.getContainEnum().getCode());
+                OrderDTO order = (OrderDTO) containService.lock(orderDTO.getId());
+                int res = containService.update(orderDTO);
                 return null != order && res == 1 ? order : null;
             }
         });
     }
+
+
 }

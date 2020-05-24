@@ -11,21 +11,21 @@ import java.util.List;
 public class ServiceComponent {
 
     /**
-     * å­˜æ”¾ä¸åŒå®ç°çš„beançš„list
+     * ´æ·Å²»Í¬ÊµÏÖµÄbeanµÄlist
      */
     private List<ServerList> list = new ArrayList<>();
 
     /**
-     * é€šè¿‡initæ–¹æ³•å°†beanå­˜æ”¾å®¹å™¨
+     * Í¨¹ıinit·½·¨½«bean´æ·ÅÈİÆ÷
      */
     private ImmutableMap<String, ServerList> service;
 
     public ServiceComponent() {
-        System.out.println("ServiceComponentåˆå§‹åŒ–");
+        System.out.println("ServiceComponent³õÊ¼»¯");
     }
 
     /**
-     * åˆå§‹æ–¹æ³•
+     * ³õÊ¼·½·¨
      */
     void init() {
         service = Maps.uniqueIndex(list, serverList ->

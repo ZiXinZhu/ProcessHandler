@@ -1,7 +1,7 @@
 package com.zzx.transactions.entity;
 
 /**
- * å…¶ä»–æ•°æ®
+ * ÆäËûÊı¾İ
  */
 public class OtherDO extends BaseDO {
     /**
@@ -9,19 +9,19 @@ public class OtherDO extends BaseDO {
      */
     private int id;
     /**
-     * ç”¨æˆ·å
+     * ÓÃ»§Ãû
      */
     private String name;
     /**
-     * å¯†ç 
+     * ÃÜÂë
      */
     private String password;
     /**
-     * åˆ›å»ºæ—¶é—´
+     * ´´½¨Ê±¼ä
      */
     private String createTime;
     /**
-     * æ›´æ–°æ—¶é—´
+     * ¸üĞÂÊ±¼ä
      */
     private String updateTime;
 

@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 import java.util.Date;
 
 /**
- * 閫�娆惧鐞嗚〃鏁版嵁
+ * 退款处理表数据
  */
 public class RefundmentDO extends BaseDO {
     /**
@@ -14,36 +14,36 @@ public class RefundmentDO extends BaseDO {
     private Integer id;
 
     /**
-     * 閫�娆緄d
+     * 退款id
      */
     @NonNull
     private String refundmentId;
 
     /**
-     * 鍏宠仈璁㈠崟鍙穒d
+     * 关联订单号id
      */
     @NonNull
     private String orderId;
 
     /**
-     * 閲戦
+     * 金额
      */
     @NonNull
     private String money;
 
     /**
-     * 澶囨敞
+     * 备注
      */
     @NonNull
     private String mark;
 
     /**
-     * 鍒涘缓鏃堕棿
+     * 创建时间
      */
     private Date creadeTime;
 
     /**
-     * 鏇存柊鏃堕棿
+     * 更新时间
      */
     private Date updateTime;
 

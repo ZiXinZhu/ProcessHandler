@@ -11,7 +11,7 @@ public class RefundmentContainServiceImpl implements ContainService<RefundmentDO
 
 
     public RefundmentContainServiceImpl() {
-        System.out.println("RefundmentContainServiceImplåˆå§‹åŒ–");
+        System.out.println("RefundmentContainServiceImpl³õÊ¼»¯");
     }
 
     @SuppressWarnings("all")

@@ -26,11 +26,11 @@ public class IteratorController {
     public void insertMap() {
         Map<String, BaseDO> map = new ConcurrentHashMap<>();
         TradeDO one = new TradeDO();
-        one.setId(1);
+        one.setId((int) (Math.random() * 9999));
         one.setTradeDate(date.format(System.currentTimeMillis()));
         one.setTradeTime(time.format(System.currentTimeMillis()));
         one.setMoney("100");
-        one.setTradeType("杞处");
+        one.setTradeType("转账");
         one.setIdentity("zzx");
         one.setBank("ABC");
         one.setReport("00");
@@ -38,11 +38,11 @@ public class IteratorController {
         one.setInsertime(dateTime.format(System.currentTimeMillis()));
 
         TradeDO two = new TradeDO();
-        two.setId(2);
+        two.setId((int) (Math.random() * 9999));
         two.setTradeDate(date.format(System.currentTimeMillis()));
         two.setTradeTime(time.format(System.currentTimeMillis()));
         two.setMoney("200");
-        two.setTradeType("杞处");
+        two.setTradeType("转账");
         two.setIdentity("other");
         two.setBank("ICBC");
         two.setReport("00");
@@ -50,7 +50,7 @@ public class IteratorController {
         two.setInsertime(dateTime.format(System.currentTimeMillis()));
 
         OtherDO three = new OtherDO();
-        three.setId(3);
+        three.setId((int) (Math.random() * 9999));
         three.setName("xiaoming");
         three.setPassword("pwd");
         three.setCreateTime(dateTime.format(System.currentTimeMillis()));

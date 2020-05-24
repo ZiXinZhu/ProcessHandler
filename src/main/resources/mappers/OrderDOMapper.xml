@@ -16,15 +16,15 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from order_info
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from order_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.zzx.transactions.entity.OrderDO">
-    insert into order (id, order_id, money, 
+    insert into order_info (id, order_id, money,
       goods, user_id, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
@@ -32,7 +32,7 @@
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.zzx.transactions.entity.OrderDO">
-        insert into order
+        insert into order_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -81,7 +81,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zzx.transactions.entity.OrderDO">
-        update order
+        update order_info
         <set>
             <if test="orderId != null">
                 order_id = #{orderId,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.zzx.transactions.entity.OrderDO">
-    update order
+    update order_info
     set order_id = #{orderId,jdbcType=VARCHAR},
       money = #{money,jdbcType=VARCHAR},
       goods = #{goods,jdbcType=VARCHAR},

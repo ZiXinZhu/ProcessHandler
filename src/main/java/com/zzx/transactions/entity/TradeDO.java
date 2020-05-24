@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
 import java.io.Serializable;
 
 /**
- * å›è°ƒå¤„ç†è¡¨æ•°æ®
+ * »Øµ÷´¦Àí±íÊı¾İ
  */
 
 /**
@@ -19,49 +19,49 @@ public class TradeDO extends BaseDO implements Serializable {
      */
     private int id;
     /**
-     * äº¤æ˜“æ—¥æœŸ
+     * ½»Ò×ÈÕÆÚ
      */
     @NonNull
     private String tradeDate;
     /**
-     * äº¤æ˜“æ—¶é—´
+     * ½»Ò×Ê±¼ä
      */
     @NonNull
     private String tradeTime;
     /**
-     * é‡‘é¢
+     * ½ğ¶î
      */
     @NonNull
     private String money;
     /**
-     * äº¤æ˜“ç±»å‹
+     * ½»Ò×ÀàĞÍ
      */
     private String tradeType;
     /**
-     * å¤‡æ³¨
+     * ±¸×¢
      */
     private String remark;
     /**
-     * èº«ä»½è®¤è¯
+     * Éí·İÈÏÖ¤
      */
     @NonNull
     private String identity;
     /**
-     * äº¤æ˜“é“¶è¡Œ
+     * ½»Ò×ÒøĞĞ
      */
     @NonNull
     private String bank;
     /**
-     * æ˜¯å¦ä¸ŠæŠ¥
+     * ÊÇ·ñÉÏ±¨
      */
     @NonNull
     private String report;
     /**
-     * é“¶è¡Œè´¦æˆ·
+     * ÒøĞĞÕË»§
      */
     private String bankAccount;
     /**
-     * å…¥åº“æ—¶é—´
+     * Èë¿âÊ±¼ä
      */
     private String insertime;
 
@@ -69,10 +69,10 @@ public class TradeDO extends BaseDO implements Serializable {
     @Override
     public void available() {
         if (this.getId() == 0) {
-            throw new CommonException(502, "IDä¸èƒ½ä¸ºç©ºï¼");
+            throw new CommonException(502, "ID²»ÄÜÎª¿Õ£¡");
         }
-        Assert.notNull(this.getBank(), "é“¶è¡Œç¼©å†™ä¸èƒ½ä¸ºç©º");
-        Assert.notNull(this.getRemark(), "å¤‡æ³¨ä¸èƒ½ä¸ºç©º");
+        Assert.notNull(this.getBank(), "ÒøĞĞËõĞ´²»ÄÜÎª¿Õ");
+        Assert.notNull(this.getRemark(), "±¸×¢²»ÄÜÎª¿Õ");
     }
 
     @Override
