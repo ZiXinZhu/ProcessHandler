@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 订单数据表数据
  */
-public class OrderDTO extends BaseDO {
+public class OrderDTO extends BaseDO implements Cloneable {
     /**
      * id
      */
@@ -62,28 +62,40 @@ public class OrderDTO extends BaseDO {
                 '}';
     }
 
-    public OrderDO convertOrderDTOToOrderDO(){
-        OrderDO orderDO=new OrderDO();
+    public OrderDO convertOrderDTOToOrderDO() {
+        OrderDO orderDO = new OrderDO();
         orderDO.setId(this.id);
         orderDO.setUserId(this.userId);
         orderDO.setGoods(this.goods);
-        orderDO.setMoney(this.money);
+        orderDO.setMoney((this.money));
         orderDO.setOrderId(this.orderId);
         orderDO.setCreateTime(this.createTime);
         orderDO.setUpdateTime(this.updateTime);
         return orderDO;
     }
 
-    public OrderDTO convertOrderDOToOrderDTO(OrderDO orderDO){
-        this.id=orderDO.getId();
-        this.goods=orderDO.getGoods();
-        this.money=orderDO.getMoney();
-        this.orderId=orderDO.getOrderId();
-        this.userId=orderDO.getUserId();
-        this.createTime=orderDO.getCreateTime();
-        this.updateTime=orderDO.getUpdateTime();
+    public OrderDTO convertOrderDOToOrderDTO(OrderDO orderDO) {
+        this.id = orderDO.getId();
+        this.goods = orderDO.getGoods();
+        this.money = orderDO.getMoney();
+        this.orderId = orderDO.getOrderId();
+        this.userId = orderDO.getUserId();
+        this.createTime = orderDO.getCreateTime();
+        this.updateTime = orderDO.getUpdateTime();
         return this;
     }
+
+
+    @Override
+    public OrderDTO clone() {
+        try {
+            return (OrderDTO) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public Integer getId() {
         return id;

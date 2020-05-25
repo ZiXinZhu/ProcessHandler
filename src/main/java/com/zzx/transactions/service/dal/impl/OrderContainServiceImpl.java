@@ -2,6 +2,7 @@ package com.zzx.transactions.service.dal.impl;
 
 
 import com.zzx.transactions.dao.OrderDOMapper;
+import com.zzx.transactions.entity.OrderDO;
 import com.zzx.transactions.entity.dto.OrderDTO;
 import com.zzx.transactions.service.dal.ContainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class OrderContainServiceImpl implements ContainService<OrderDTO> {
 
     @Override
     public int update(OrderDTO orderDTO) {
-        return orderDOMapper.updateByPrimaryKeySelective(orderDTO.convertOrderDTOToOrderDO());
+        return orderDOMapper.updateByPrimaryKeySelective(orderDTO.clone() == null ? new OrderDO() : orderDTO.clone().convertOrderDTOToOrderDO());
     }
 
     @Override

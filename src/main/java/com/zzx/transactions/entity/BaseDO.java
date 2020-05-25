@@ -18,6 +18,11 @@ public class BaseDO {
 
     }
 
+    @Override
+    public BaseDO clone() throws CloneNotSupportedException {
+        return (BaseDO) super.clone();
+    }
+
     public ContainEnum getContainEnum() {
         return containEnum;
     }
