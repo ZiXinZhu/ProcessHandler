@@ -7,16 +7,17 @@ import com.zzx.transactions.entity.dto.OrderDTO;
 import com.zzx.transactions.enums.ContainEnum;
 import com.zzx.transactions.service.share.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @SuppressWarnings("all")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
-
 
     @GetMapping("/order")
     public CommonResult<OrderDTO> order() {
