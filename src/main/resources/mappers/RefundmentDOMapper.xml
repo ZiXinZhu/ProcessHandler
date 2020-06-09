@@ -11,8 +11,8 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, refundment_id, order_id, money, mark, creade_time, update_time
-  </sql>
+        id, refundment_id, order_id, money, mark, creade_time, update_time
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -20,17 +20,17 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from refundment
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from refundment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.zzx.transactions.entity.RefundmentDO">
-    insert into refundment (id, refundment_id, order_id, 
-      money, mark, creade_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{refundmentId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
-      #{money,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{creadeTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
+        insert into refundment (id, refundment_id, order_id,
+        money, mark, creade_time,
+        update_time)
+        values (#{id,jdbcType=INTEGER}, #{refundmentId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR},
+        #{money,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{creadeTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="com.zzx.transactions.entity.RefundmentDO">
         insert into refundment
         <trim prefix="(" suffix=")" suffixOverrides=",">

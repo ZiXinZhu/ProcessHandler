@@ -1,10 +1,13 @@
 package com.zzx.transactions.service.share.impl;
 
+import com.zzx.transactions.config.ParamterDRMConfig;
 import com.zzx.transactions.entity.BaseDO;
 import com.zzx.transactions.entity.TradeDO;
 import com.zzx.transactions.service.dal.TradeDalService;
 import com.zzx.transactions.service.share.IteratorService;
 import com.zzx.transactions.service.share.SystemParamterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.Map;
 
 @Service
 public class IteratorServiceImpl implements IteratorService {
+    Logger logger = LoggerFactory.getLogger("info");
 
     private static final String SELECT_PARAMETER = "SELECT_PARAMETER";
     @SuppressWarnings("all")
@@ -27,6 +31,8 @@ public class IteratorServiceImpl implements IteratorService {
 
     @Autowired
     private SystemParamterService systemParamterService;
+    @Autowired
+    private ParamterDRMConfig paramterDRMConfig;
 
     @Override
     public void mapIterator(Map<String, ? extends BaseDO> map) {
@@ -39,8 +45,11 @@ public class IteratorServiceImpl implements IteratorService {
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 map.forEach((k, v) -> {
                     if ("other".equals(k)) {
-                        tradeDalService.insertOne((TradeDO) v);
-                        tradeDalService.updateBank("ABC", ((TradeDO) v).getId());
+                        TradeDO tradeDO=(TradeDO) v;
+                        tradeDO.setIdentity(paramterDRMConfig.getOldListOU(0));
+                        logger.info("tradeDO¶ÔÏóÎª:{}",tradeDO.toString());
+                        tradeDalService.insertOne(tradeDO);
+                        tradeDalService.updateBank("ABC", tradeDO.getId());
                         System.out.println(v.toString());
                     }
                 });

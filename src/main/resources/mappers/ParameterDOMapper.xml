@@ -7,8 +7,8 @@
         <result column="result_value" property="resultValue" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, key_word, result_value
-  </sql>
+        id, key_word, result_value
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -16,15 +16,15 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from parameter
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from parameter
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.zzx.transactions.entity.ParameterDO">
-    insert into parameter (id, key_word, result_value
-      )
-    values (#{id,jdbcType=INTEGER}, #{keyWord,jdbcType=VARCHAR}, #{resultValue,jdbcType=VARCHAR}
-      )
-  </insert>
+        insert into parameter (id, key_word, result_value
+        )
+        values (#{id,jdbcType=INTEGER}, #{keyWord,jdbcType=VARCHAR}, #{resultValue,jdbcType=VARCHAR}
+        )
+    </insert>
     <insert id="insertSelective" parameterType="com.zzx.transactions.entity.ParameterDO">
         insert into parameter
         <trim prefix="(" suffix=")" suffixOverrides=",">
