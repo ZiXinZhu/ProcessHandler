@@ -4,10 +4,7 @@ import com.zzx.transactions.exceptions.CommonException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TimeUtil {
@@ -97,26 +94,27 @@ public class TimeUtil {
 
     /**
      * 时区转换可以是GMT也可以是UTC
+     *
      * @param oldTimeZone
      * @param newTimeZone
      * @param dateTime
      * @return
      */
-    public static String timeZoneTransfer(String oldTimeZone, String newTimeZone, String  dateTime) {
-        if (oldTimeZone.contains(UTC)||newTimeZone.contains(UTC)){
-            oldTimeZone=oldTimeZone.replace("UTC",GMT);
-            newTimeZone=newTimeZone.replace("UTC",GMT);
+    public static String timeZoneTransfer(String oldTimeZone, String newTimeZone, String dateTime) {
+        if (oldTimeZone.contains(UTC) || newTimeZone.contains(UTC)) {
+            oldTimeZone = oldTimeZone.replace("UTC", GMT);
+            newTimeZone = newTimeZone.replace("UTC", GMT);
         }
-        TimeZone oldSource=TimeZone.getTimeZone(oldTimeZone);
-        TimeZone newSource=TimeZone.getTimeZone(newTimeZone);
+        TimeZone oldSource = TimeZone.getTimeZone(oldTimeZone);
+        TimeZone newSource = TimeZone.getTimeZone(newTimeZone);
 
-        SimpleDateFormat oleTime=new SimpleDateFormat(STANDARD_DATE);
-        SimpleDateFormat newTime=new SimpleDateFormat(STANDARD_DATE);
+        SimpleDateFormat oleTime = new SimpleDateFormat(STANDARD_DATE);
+        SimpleDateFormat newTime = new SimpleDateFormat(STANDARD_DATE);
 
         oleTime.setTimeZone(oldSource);
         newTime.setTimeZone(newSource);
 
-        Date olds= null;
+        Date olds = null;
         try {
             olds = oleTime.parse(dateTime);
         } catch (ParseException e) {
@@ -125,13 +123,77 @@ public class TimeUtil {
         return newTime.format(olds);
     }
 
+    /**
+     * 获取明年的现在的时间
+     *
+     * @return
+     */
+    public static String getFluterDateTime() {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, 1);
+//        calendar.add(Calendar.MONTH,1);
+//        calendar.add(Calendar.WEEK_OF_MONTH,1);
+//        calendar.add(Calendar.DAY_OF_WEEK,1);
+//        calendar.add(Calendar.HOUR,1);
+//        calendar.add(Calendar.MINUTE,1);
+//        calendar.add(Calendar.SECOND,1);
+        Date date = calendar.getTime();
+        return dateConvertToString(date, STANDARD_DATE);
+    }
+
+    /**
+     * 获取某个时间是一周的第几天
+     *
+     * @param dateTime
+     * @return
+     */
+    public static int indexOfDateTime(String dateTime) {
+        ;
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(stringConvertToDate(dateTime, STANDARD_DATE));
+        return calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
+
+    /**
+     * 获取星期一的时间
+     *
+     * @param dateTime
+     * @return
+     */
+    public static String getMondayDateTime(String dateTime) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(stringConvertToDate(dateTime, STANDARD_DATE));
+        int index = calendar.get(Calendar.DAY_OF_WEEK);
+        if (index == 2) {
+            return dateTime;
+        }
+
+        if (index == 1) {
+            calendar.add(Calendar.DAY_OF_WEEK, -6);
+            Date date = calendar.getTime();
+            return dateConvertToString(date, STANDARD_DATE);
+        }
+        calendar.add(Calendar.DAY_OF_WEEK, 2 - index);
+        Date date = calendar.getTime();
+        return dateConvertToString(date, STANDARD_DATE);
+    }
+
+
     public static void main(String[] args) {
         Date date = stringConvertToDate("2020-01-02 21:45:31", STANDARD_DATE);
         System.out.println(date);
         String dateString = dateConvertToString(new Date(), LONG_DATE);
         System.out.println(dateString);
 
-        String dateTime=timeZoneTransfer("UTC-2:00","UTC+8:00","2020-01-02 21:45:31");
+        String dateTime = timeZoneTransfer("UTC-2:00", "UTC+8:00", "2020-01-02 21:45:31");
         System.out.println(dateTime);
+
+        System.out.println(getFluterDateTime());
+        System.out.println(indexOfDateTime("2020-06-13 10:48:21"));
+
+        System.out.println(getMondayDateTime("2020-06-16 10:48:21"));
+
     }
 }
