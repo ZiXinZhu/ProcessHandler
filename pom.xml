@@ -50,7 +50,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx 编程式事务-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
@@ -66,14 +66,22 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
+        <!--guava cache-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>20.0</version>
         </dependency>
+        <!--slf4j-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- execel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
         </dependency>
     </dependencies>
 
