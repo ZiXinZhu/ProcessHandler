@@ -1,12 +1,12 @@
 package com.zzx.transactions.utils;
 
+import org.apache.poi.hssf.extractor.ExcelExtractor;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 
 public class ExecelUtil {
@@ -30,8 +30,26 @@ public class ExecelUtil {
         HSSFCellStyle style = workbook.createCellStyle();
         style.setFillForegroundColor(IndexedColors.GREEN.index);
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//设置单元格字体位置
+
+//设置单元格字体位置水平方向
         style.setAlignment(HorizontalAlignment.LEFT);
+//设置单元格字体位置垂直方向
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+//设置边框
+        style.setBorderBottom(BorderStyle.THIN);   //底部边框样式
+        //通过颜色索引设置底部颜色
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex()); //底部边框颜色
+
+        //同理，设置左边样式
+        style.setBorderLeft(BorderStyle.THIN);    //左边边框样式
+        style.setLeftBorderColor(IndexedColors.BLUE.getIndex());    //左边边框颜色
+
+        //同理，设置右边样式
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.GREEN.getIndex());
+        //最后，设置顶部样式
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BROWN.getIndex());
 //设置字体
         HSSFFont font = workbook.createFont();
         font.setFontHeightInPoints((short) 12); // 字体高度
@@ -95,4 +113,47 @@ public class ExecelUtil {
     }
 
 
+    /**
+     * 遍历获取相应类型值静态工具类
+     * @param cell
+     * @return
+     */
+    private static String getCellDate(Cell cell) {
+        String return_string = null;
+        switch (cell.getCellType()) {
+            case HSSFCell.CELL_TYPE_STRING:
+                return_string = cell.getStringCellValue();
+                break;
+            case HSSFCell.CELL_TYPE_NUMERIC:
+                return_string = cell.getNumericCellValue() + "";
+                break;
+            case HSSFCell.CELL_TYPE_BOOLEAN:
+                return_string = String.valueOf(cell.getBooleanCellValue());
+            default:
+                return_string = "";
+                break;
+        }
+        return return_string;
+    }
+
+
+    /**
+     * 获取execel表的文本内容
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        //通过输入流获取工作簿
+        InputStream in = new FileInputStream("C:\\Users\\Husky\\Desktop\\模板.xls");
+        //(以下直接使用的是类而不是接口，因为类有实现还有自己的方法，更加强大)
+        POIFSFileSystem fs = new POIFSFileSystem(in);
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+
+        ExcelExtractor excelExtractor = new ExcelExtractor(wb);
+        //去掉sheet名字
+        excelExtractor.setIncludeSheetNames(false);
+        //抽取文本输出
+        System.out.println(excelExtractor.getText());
+        in.close();
+    }
 }
