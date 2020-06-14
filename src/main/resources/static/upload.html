@@ -4,13 +4,11 @@
     <title>File upload</title>
 </head>
 <body>
-<div style="width: 20%;height: 30%;margin: auto;margin-top: 300px;background-color: #aeb6c9">
+<div >
     <!--  // action="fileupload"对应web.xml中<servlet-mapping>中<url-pattern>的设置. -->
     <form name="myform" action="/upload" method="post" enctype="multipart/form-data">
-        <p>上传Execel表格:</p><br><br><br>
-        <input style="margin-left:70px" type="file" name="file"><br>
-        <br>
-        <input style="margin-left:70px;width: 60%" type="submit" name="submit" value="点击上传">
+        <input type="file" name="file"><br>
+        <input type="submit" name="submit" value="点击上传">
     </form>
 </div>
 </body>
