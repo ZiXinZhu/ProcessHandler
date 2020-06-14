@@ -26,16 +26,16 @@ public class ParamterDRMController {
         ProcessHandler.handler(result, new ParamterHandler() {
             @Override
             public void check() {
-                if (Objects.isNull(list)){
+                if (Objects.isNull(list)) {
                     throw new CommonException("DRM老OU配置不能为空！");
                 }
             }
 
             @Override
             public void process() {
-               paramterDRMConfig.setOldListOU(list);
-               result.setResult("成功");
-               result.setDescribe("老OU列表更新内容为："+list);
+                paramterDRMConfig.setOldListOU(list);
+                result.setResult("成功");
+                result.setDescribe("老OU列表更新内容为：" + list);
             }
         });
         return result;

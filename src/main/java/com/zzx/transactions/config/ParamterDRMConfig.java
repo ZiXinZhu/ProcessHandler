@@ -82,11 +82,12 @@ public class ParamterDRMConfig {
     }
 
     public String getOldListOU(int index) {
-        return getOne(oldListOU,index);
+        return getOne(oldListOU, index);
     }
 
     /**
      * ĞŞ¸ÄÀÏOUÅäÖÃ
+     *
      * @param oldListOU
      */
     public void setOldListOU(String oldListOU) {
@@ -94,11 +95,12 @@ public class ParamterDRMConfig {
     }
 
     public String getCloudListOU(int index) {
-        return getOne(cloudListOU,index);
+        return getOne(cloudListOU, index);
     }
 
     /**
      * ĞŞ¸ÄÔÆOUÅäÖÃ
+     *
      * @param cloudListOU
      */
     public void setCloudListOU(String cloudListOU) {
@@ -106,20 +108,21 @@ public class ParamterDRMConfig {
     }
 
     public String getUnCloldListOU(int index) {
-        return getOne(unCloldListOU,index);
+        return getOne(unCloldListOU, index);
     }
 
     /**
-     *ĞŞ¸Ä·ÇÔÆOUÅäÖÃ
+     * ĞŞ¸Ä·ÇÔÆOUÅäÖÃ
+     *
      * @param unCloldListOU
      */
     public void setUnCloldListOU(String unCloldListOU) {
         this.unCloldListOU = unCloldListOU;
     }
 
-    public String getOne(String ou,int index){
-        String [] split=ou.split(",");
-        if(index>split.length-1){
+    public String getOne(String ou, int index) {
+        String[] split = ou.split(",");
+        if (index > split.length - 1) {
             return "error";
         }
         return split[index];

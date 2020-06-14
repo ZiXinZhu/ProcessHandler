@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Service
 public class IteratorServiceImpl implements IteratorService {
-    Logger logger = LoggerFactory.getLogger("info");
+    private static Logger logger = LoggerFactory.getLogger("info");
 
     private static final String SELECT_PARAMETER = "SELECT_PARAMETER";
     @SuppressWarnings("all")
@@ -45,9 +45,9 @@ public class IteratorServiceImpl implements IteratorService {
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 map.forEach((k, v) -> {
                     if ("other".equals(k)) {
-                        TradeDO tradeDO=(TradeDO) v;
+                        TradeDO tradeDO = (TradeDO) v;
                         tradeDO.setIdentity(paramterDRMConfig.getOldListOU(0));
-                        logger.info("tradeDO对象为:{}",tradeDO.toString());
+                        logger.info("tradeDO对象为:{}", tradeDO.toString());
                         tradeDalService.insertOne(tradeDO);
                         tradeDalService.updateBank("ABC", tradeDO.getId());
                         System.out.println(v.toString());

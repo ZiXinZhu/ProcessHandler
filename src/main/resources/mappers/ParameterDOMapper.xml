@@ -63,9 +63,9 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.zzx.transactions.entity.ParameterDO">
-    update parameter
-    set key_word = #{keyWord,jdbcType=VARCHAR},
-      result_value = #{resultValue,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update parameter
+        set key_word = #{keyWord,jdbcType=VARCHAR},
+        result_value = #{resultValue,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

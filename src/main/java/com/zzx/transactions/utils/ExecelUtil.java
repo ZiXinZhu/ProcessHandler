@@ -1,17 +1,26 @@
 package com.zzx.transactions.utils;
 
+import com.zzx.transactions.exceptions.CommonException;
 import org.apache.poi.hssf.extractor.ExcelExtractor;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 
 public class ExecelUtil {
 
-
+    private static Logger logger = LoggerFactory.getLogger("info");
 
     /**
      * 下载execel表模板
@@ -21,12 +30,152 @@ public class ExecelUtil {
         HSSFSheet sheet = workbook.createSheet("sheet1");//创建工作表(Sheet)
 //设置第一列宽（3766）
         sheet.setColumnWidth(0, 3766);
-//设置单元格数据格式
-        HSSFCellStyle textStyle = workbook.createCellStyle();
-        HSSFDataFormat format = workbook.createDataFormat();
-        textStyle.setDataFormat(format.getFormat("#,##0.000"));
+        HSSFRow row = sheet.createRow(0);// 创建行,从0开始
+        for (int i = 0; i < 10; i++) {
+            HSSFCell cells = row.createCell(i);// 设置单元格内容,重载
+            styleOne(workbook, cells).setCellValue("第" + i + "个参数");
+        }
+        HSSFRow row_one = sheet.createRow(1);
+        HSSFCell cell = row_one.createCell(0);
+        styleTwo(workbook, cell).setCellValue(131231688);//设置单元格格式为"文本"
+        row_one.createCell(1).setCellValue("【参数2】");
+        row_one.createCell(2).setCellValue("【参数3】");
+        row_one.createCell(3).setCellValue("【参数4】");
+        row_one.createCell(4).setCellValue("【参数5】");
 
-//创建CellStyle或HSSFCellStyle对象
+
+        OutputStream outputStream = null;
+        String filename = "模板.xls";
+        try {
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "utf-8"));
+            outputStream = response.getOutputStream();
+            workbook.write(outputStream);//保存Excel文件
+            if (outputStream != null) {
+                outputStream.close();//关闭文件流
+            }
+        } catch (Exception e) {
+            logger.info("execel流输出时错误,错误详情：{}", e.getMessage());
+            throw new CommonException("execel流输出时错误");
+        }
+        System.out.println("OK!");
+    }
+
+
+    /**
+     * 上传并解析execel表
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws FileUploadException
+     */
+    public static String upLoadExecel(MultipartFile file) {
+
+        byte[] b = new byte[0];
+        try {
+            b = file.getBytes();
+        } catch (IOException e) {
+            logger.info("上传文件出错,错误详情：{}", e.getMessage());
+            throw new CommonException("上传文件出错");
+        }
+        InputStream is = new ByteArrayInputStream(b);
+        HSSFWorkbook hssfWorkbook = null;
+        try {
+            hssfWorkbook = new HSSFWorkbook(is);
+        } catch (IOException e) {
+            logger.info("该文件为非execel文件,错误详情：{}", e.getMessage());
+            throw new CommonException("该文件为非execel文件");
+        }
+        // 循环工作表Sheet
+        for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
+            HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
+            if (hssfSheet == null) {
+                continue;
+            }
+            // 循环行Row
+            for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
+                HSSFRow hssfRow = hssfSheet.getRow(rowNum);
+                if (hssfRow == null) {
+                    continue;
+                }
+                // 循环列Cell
+                for (int j = 0; j <= hssfRow.getLastCellNum(); j++) {
+                    HSSFCell cell = hssfRow.getCell(j);
+                    if (cell == null) {
+                        continue;
+                    }
+                    System.out.println(getCellDate(cell));
+                }
+            }
+        }
+        return "数据上传成功！";
+    }
+
+
+    /**
+     * 遍历获取相应类型值静态工具类
+     *
+     * @param cell
+     * @return
+     */
+    private static String getCellDate(Cell cell) {
+
+        String return_string = null;
+        switch (cell.getCellType()) {
+            case HSSFCell.CELL_TYPE_STRING:
+                return_string = cell.getStringCellValue();
+                break;
+            case HSSFCell.CELL_TYPE_NUMERIC:
+                DecimalFormat format = new DecimalFormat("#,##0.000");
+                return_string = String.valueOf(format.format(cell.getNumericCellValue()));
+                break;
+            case HSSFCell.CELL_TYPE_BOOLEAN:
+                return_string = String.valueOf(cell.getBooleanCellValue());
+            default:
+                return_string = "";
+                break;
+        }
+        return return_string;
+    }
+
+
+    /**
+     * 获取execel表的文本内容
+     *
+     * @param file
+     * @throws IOException
+     */
+    public static void outText(MultipartFile file) throws IOException {
+        byte[] b = new byte[0];
+        try {
+            b = file.getBytes();
+        } catch (IOException e) {
+            logger.info("上传文件出错,错误详情：{}", e.getMessage());
+            throw new CommonException("上传文件出错");
+        }
+        InputStream in = new ByteArrayInputStream(b);
+        //(以下直接使用的是类而不是接口，因为类有实现还有自己的方法，更加强大)
+        POIFSFileSystem fs = new POIFSFileSystem(in);
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+
+        ExcelExtractor excelExtractor = new ExcelExtractor(wb);
+        //去掉sheet名字
+        excelExtractor.setIncludeSheetNames(false);
+        //抽取文本输出
+        System.out.println(excelExtractor.getText());
+        in.close();
+    }
+
+
+    /**
+     * 样式1
+     *
+     * @param workbook
+     * @param cell
+     * @return
+     */
+    private static HSSFCell styleOne(HSSFWorkbook workbook, HSSFCell cell) {
+        //创建CellStyle或HSSFCellStyle对象
         HSSFCellStyle style = workbook.createCellStyle();
         style.setFillForegroundColor(IndexedColors.GREEN.index);
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -55,105 +204,24 @@ public class ExecelUtil {
         font.setFontHeightInPoints((short) 12); // 字体高度
         font.setFontName(" 宋体 "); // 字体
         style.setFont(font);
-
-        HSSFRow row = sheet.createRow(0);// 创建行,从0开始
-        HSSFCell one=row.createCell(0);// 设置单元格内容,重载
-        one.setCellStyle(style);
-        one.setCellValue("第1个参数");
-        HSSFCell two=row.createCell(1);
-        two.setCellStyle(style);
-        two.setCellValue("第2个参数");
-        HSSFCell three=row.createCell(2);
-        three.setCellStyle(style);
-        three.setCellValue("第3个参数");
-        HSSFCell four=row.createCell(3);
-        four.setCellStyle(style);
-        four.setCellValue("第4个参数");
-        HSSFCell five=row.createCell(4);
-        five.setCellStyle(style);
-        five.setCellValue("第5个参数");
-
-        HSSFRow row_one = sheet.createRow(1);
-
-        HSSFCell cell=row_one.createCell(0);
-        cell.setCellStyle(textStyle);//设置单元格格式为"文本"
-        cell.setCellType(CellType.NUMERIC);
-        cell.setCellValue(131231688);
-        row_one.createCell(1).setCellValue("【参数2】");
-        row_one.createCell(2).setCellValue("【参数3】");
-        row_one.createCell(3).setCellValue("【参数4】");
-        row_one.createCell(4).setCellValue("【参数5】");
-
-
-        OutputStream outputStream = null;
-        String filename = "模板.xls";
-        try {
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        try {
-            outputStream = response.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            workbook.write(outputStream);//保存Excel文件
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (outputStream != null) {
-                outputStream.close();//关闭文件流
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("OK!");
+        cell.setCellStyle(style);
+        return cell;
     }
 
-
     /**
-     * 遍历获取相应类型值静态工具类
+     * 样式2
+     *
+     * @param workbook
      * @param cell
      * @return
      */
-    private static String getCellDate(Cell cell) {
-        String return_string = null;
-        switch (cell.getCellType()) {
-            case HSSFCell.CELL_TYPE_STRING:
-                return_string = cell.getStringCellValue();
-                break;
-            case HSSFCell.CELL_TYPE_NUMERIC:
-                return_string = cell.getNumericCellValue() + "";
-                break;
-            case HSSFCell.CELL_TYPE_BOOLEAN:
-                return_string = String.valueOf(cell.getBooleanCellValue());
-            default:
-                return_string = "";
-                break;
-        }
-        return return_string;
+    private static HSSFCell styleTwo(HSSFWorkbook workbook, HSSFCell cell) {
+        //设置单元格数据格式
+        HSSFCellStyle textStyle = workbook.createCellStyle();
+        HSSFDataFormat format = workbook.createDataFormat();
+        textStyle.setDataFormat(format.getFormat("#,##0.000"));
+        cell.setCellStyle(textStyle);
+        return cell;
     }
 
-
-    /**
-     * 获取execel表的文本内容
-     * @param args
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-        //通过输入流获取工作簿
-        InputStream in = new FileInputStream("C:\\Users\\Husky\\Desktop\\模板.xls");
-        //(以下直接使用的是类而不是接口，因为类有实现还有自己的方法，更加强大)
-        POIFSFileSystem fs = new POIFSFileSystem(in);
-        HSSFWorkbook wb = new HSSFWorkbook(fs);
-
-        ExcelExtractor excelExtractor = new ExcelExtractor(wb);
-        //去掉sheet名字
-        excelExtractor.setIncludeSheetNames(false);
-        //抽取文本输出
-        System.out.println(excelExtractor.getText());
-        in.close();
-    }
 }
