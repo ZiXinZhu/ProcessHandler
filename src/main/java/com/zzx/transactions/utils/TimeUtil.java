@@ -86,6 +86,7 @@ public class TimeUtil {
                 t1 = SDF_MAP.get(pattern);
                 if (Objects.isNull(t1)) {
                     t1 = ThreadLocal.withInitial(() -> new SimpleDateFormat(pattern));
+                    SDF_MAP.put(pattern,t1);
                 }
             }
         }
