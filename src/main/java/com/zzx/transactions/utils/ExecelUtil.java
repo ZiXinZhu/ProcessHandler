@@ -15,39 +15,57 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class ExecelUtil {
 
     private static Logger logger = LoggerFactory.getLogger("info");
 
+
     /**
      * 下载execel表模板
      */
-    public static void download(HttpServletResponse response) {
+    public static void download(HttpServletResponse response, String name, List list, String[] title) {
         HSSFWorkbook workbook = new HSSFWorkbook();//创建Excel文件(Workbook)
         HSSFSheet sheet = workbook.createSheet("sheet1");//创建工作表(Sheet)
 //设置第一列宽（3766）
         sheet.setColumnWidth(0, 3766);
         HSSFRow row = sheet.createRow(0);// 创建行,从0开始
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < title.length; i++) {
             HSSFCell cells = row.createCell(i);// 设置单元格内容,重载
-            styleOne(workbook, cells).setCellValue("第" + i + "个参数");
+            styleOne(workbook, cells).setCellValue(title[i]);
         }
-        HSSFRow row_one = sheet.createRow(1);
-        HSSFCell cell = row_one.createCell(0);
-        styleTwo(workbook, cell).setCellValue(131231688);//设置单元格格式为"文本"
-        row_one.createCell(1).setCellValue("【参数2】");
-        row_one.createCell(2).setCellValue("【参数3】");
-        row_one.createCell(3).setCellValue("【参数4】");
-        row_one.createCell(4).setCellValue("【参数5】");
 
 
+        for(int i = 0; i < list.size() ;i++){
+            Class cls = list.get(i).getClass();
+            //得到所有属性
+            Field[] fields = cls.getDeclaredFields();
+            HSSFRow row_one = sheet.createRow(i+1);
+            styleTwo(workbook, row_one);
+            for (int j = 0; j < title.length; j++) {
+                //得到属性
+                Field field = fields[j];
+                //打开私有访问
+                field.setAccessible(true);
+                //获取属性
+                Object value = null;
+                try {
+                    value = field.get(list.get(i));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                row_one.createCell(j).setCellValue(String.valueOf(value));
+            }
+        }
         OutputStream outputStream = null;
-        String filename = "模板.xls";
         try {
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "utf-8"));
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(name, "utf-8"));
             outputStream = response.getOutputStream();
             workbook.write(outputStream);//保存Excel文件
             if (outputStream != null) {
@@ -215,12 +233,12 @@ public class ExecelUtil {
      * @param cell
      * @return
      */
-    private static HSSFCell styleTwo(HSSFWorkbook workbook, HSSFCell cell) {
+    private static HSSFRow styleTwo(HSSFWorkbook workbook, HSSFRow cell) {
         //设置单元格数据格式
         HSSFCellStyle textStyle = workbook.createCellStyle();
         HSSFDataFormat format = workbook.createDataFormat();
         textStyle.setDataFormat(format.getFormat("#,##0.000"));
-        cell.setCellStyle(textStyle);
+        cell.setRowStyle(textStyle);
         return cell;
     }
 

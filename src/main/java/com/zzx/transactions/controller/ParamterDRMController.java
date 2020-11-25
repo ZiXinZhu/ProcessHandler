@@ -1,5 +1,4 @@
 package com.zzx.transactions.controller;
-
 import com.zzx.transactions.common.CommonResult;
 import com.zzx.transactions.common.ParamterHandler;
 import com.zzx.transactions.common.ProcessHandler;
@@ -27,17 +26,18 @@ public class ParamterDRMController {
             @Override
             public void check() {
                 if (Objects.isNull(list)) {
-                    throw new CommonException("DRMÀÏOUÅäÖÃ²»ÄÜÎª¿Õ£¡");
+                    throw new CommonException("DRMè€OUé…ç½®ä¸èƒ½ä¸ºç©ºï¼");
                 }
             }
 
             @Override
             public void process() {
                 paramterDRMConfig.setOldListOU(list);
-                result.setResult("³É¹¦");
-                result.setDescribe("ÀÏOUÁĞ±í¸üĞÂÄÚÈİÎª£º" + list);
+                result.setResult("æˆåŠŸ");
+                result.setDescribe("è€OUåˆ—è¡¨æ›´æ–°å†…å®¹ä¸ºï¼š" + list);
             }
         });
         return result;
     }
 }
+
